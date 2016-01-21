@@ -37,11 +37,6 @@
             this.tpScript = new System.Windows.Forms.TabPage();
             this.tpResultado = new System.Windows.Forms.TabPage();
             this.txtResultados = new System.Windows.Forms.TextBox();
-            this.ofd = new System.Windows.Forms.OpenFileDialog();
-            this.btnGravar = new System.Windows.Forms.Button();
-            this.sfd = new System.Windows.Forms.SaveFileDialog();
-            this.btnSalvarComo = new System.Windows.Forms.Button();
-            this.lblVersao = new System.Windows.Forms.Label();
             this.tc.SuspendLayout();
             this.tpScript.SuspendLayout();
             this.tpResultado.SuspendLayout();
@@ -54,15 +49,15 @@
             this.txtScript.Multiline = true;
             this.txtScript.Name = "txtScript";
             this.txtScript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtScript.Size = new System.Drawing.Size(940, 331);
+            this.txtScript.Size = new System.Drawing.Size(527, 300);
             this.txtScript.TabIndex = 1;
             // 
             // btnExecutar
             // 
-            this.btnExecutar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExecutar.Location = new System.Drawing.Point(790, 7);
+            this.btnExecutar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExecutar.Location = new System.Drawing.Point(563, 282);
             this.btnExecutar.Name = "btnExecutar";
-            this.btnExecutar.Size = new System.Drawing.Size(173, 46);
+            this.btnExecutar.Size = new System.Drawing.Size(173, 65);
             this.btnExecutar.TabIndex = 2;
             this.btnExecutar.Text = "Executar";
             this.btnExecutar.UseVisualStyleBackColor = true;
@@ -72,21 +67,21 @@
             // 
             this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb.Location = new System.Drawing.Point(16, 431);
+            this.pb.Location = new System.Drawing.Point(16, 363);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(799, 28);
+            this.pb.Size = new System.Drawing.Size(720, 46);
             this.pb.TabIndex = 3;
             this.pb.Visible = false;
             // 
             // btnCarregar
             // 
-            this.btnCarregar.Location = new System.Drawing.Point(16, 7);
+            this.btnCarregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCarregar.Location = new System.Drawing.Point(563, 34);
             this.btnCarregar.Name = "btnCarregar";
             this.btnCarregar.Size = new System.Drawing.Size(173, 46);
             this.btnCarregar.TabIndex = 4;
-            this.btnCarregar.Text = "Abrir...";
+            this.btnCarregar.Text = "Carregar";
             this.btnCarregar.UseVisualStyleBackColor = true;
-            this.btnCarregar.Click += new System.EventHandler(this.btnCarregar_Click);
             // 
             // bw
             // 
@@ -103,10 +98,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tc.Controls.Add(this.tpScript);
             this.tc.Controls.Add(this.tpResultado);
-            this.tc.Location = new System.Drawing.Point(16, 59);
+            this.tc.Location = new System.Drawing.Point(16, 12);
             this.tc.Name = "tc";
             this.tc.SelectedIndex = 0;
-            this.tc.Size = new System.Drawing.Size(954, 366);
+            this.tc.Size = new System.Drawing.Size(541, 335);
             this.tc.TabIndex = 5;
             // 
             // tpScript
@@ -115,7 +110,7 @@
             this.tpScript.Location = new System.Drawing.Point(4, 25);
             this.tpScript.Name = "tpScript";
             this.tpScript.Padding = new System.Windows.Forms.Padding(3);
-            this.tpScript.Size = new System.Drawing.Size(946, 337);
+            this.tpScript.Size = new System.Drawing.Size(533, 306);
             this.tpScript.TabIndex = 0;
             this.tpScript.Text = "Script a executar";
             this.tpScript.UseVisualStyleBackColor = true;
@@ -126,7 +121,7 @@
             this.tpResultado.Location = new System.Drawing.Point(4, 25);
             this.tpResultado.Name = "tpResultado";
             this.tpResultado.Padding = new System.Windows.Forms.Padding(3);
-            this.tpResultado.Size = new System.Drawing.Size(723, 390);
+            this.tpResultado.Size = new System.Drawing.Size(533, 306);
             this.tpResultado.TabIndex = 1;
             this.tpResultado.Text = "Resultados";
             this.tpResultado.UseVisualStyleBackColor = true;
@@ -137,59 +132,15 @@
             this.txtResultados.Location = new System.Drawing.Point(3, 3);
             this.txtResultados.Multiline = true;
             this.txtResultados.Name = "txtResultados";
-            this.txtResultados.ReadOnly = true;
             this.txtResultados.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtResultados.Size = new System.Drawing.Size(717, 384);
+            this.txtResultados.Size = new System.Drawing.Size(527, 300);
             this.txtResultados.TabIndex = 2;
-            // 
-            // ofd
-            // 
-            this.ofd.Filter = "Todos os arquivos|*.*";
-            this.ofd.Title = "Abrir script";
-            // 
-            // btnGravar
-            // 
-            this.btnGravar.Location = new System.Drawing.Point(195, 7);
-            this.btnGravar.Name = "btnGravar";
-            this.btnGravar.Size = new System.Drawing.Size(173, 46);
-            this.btnGravar.TabIndex = 6;
-            this.btnGravar.Text = "Salvar";
-            this.btnGravar.UseVisualStyleBackColor = true;
-            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
-            // 
-            // sfd
-            // 
-            this.sfd.Filter = "Todos os arquivos|*.*";
-            this.sfd.Title = "Salvar script como...";
-            // 
-            // btnSalvarComo
-            // 
-            this.btnSalvarComo.Location = new System.Drawing.Point(374, 7);
-            this.btnSalvarComo.Name = "btnSalvarComo";
-            this.btnSalvarComo.Size = new System.Drawing.Size(173, 46);
-            this.btnSalvarComo.TabIndex = 7;
-            this.btnSalvarComo.Text = "Salvar como...";
-            this.btnSalvarComo.UseVisualStyleBackColor = true;
-            this.btnSalvarComo.Click += new System.EventHandler(this.btnSalvarComo_Click);
-            // 
-            // lblVersao
-            // 
-            this.lblVersao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVersao.Location = new System.Drawing.Point(821, 436);
-            this.lblVersao.Name = "lblVersao";
-            this.lblVersao.Size = new System.Drawing.Size(145, 23);
-            this.lblVersao.TabIndex = 8;
-            this.lblVersao.Text = "Versão 000.00.00.00";
-            this.lblVersao.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // frmExecutaScript
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 471);
-            this.Controls.Add(this.lblVersao);
-            this.Controls.Add(this.btnSalvarComo);
-            this.Controls.Add(this.btnGravar);
+            this.ClientSize = new System.Drawing.Size(748, 421);
             this.Controls.Add(this.tc);
             this.Controls.Add(this.btnCarregar);
             this.Controls.Add(this.pb);
@@ -217,11 +168,6 @@
         private System.Windows.Forms.TabPage tpScript;
         private System.Windows.Forms.TabPage tpResultado;
         private System.Windows.Forms.TextBox txtResultados;
-        private System.Windows.Forms.OpenFileDialog ofd;
-        private System.Windows.Forms.Button btnGravar;
-        private System.Windows.Forms.SaveFileDialog sfd;
-        private System.Windows.Forms.Button btnSalvarComo;
-        private System.Windows.Forms.Label lblVersao;
     }
 }
 

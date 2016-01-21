@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -16,29 +15,21 @@ namespace ExecutaScript
 {
     public partial class frmExecutaScript : Form
     {
-        public String NomeArquivo { get; set; }
 
-        public delegate void DelegateAdicionaResultado(String resultado);
+        public delegate void DelegateAdicionaResultado (String resultado);
 
         public DelegateAdicionaResultado dar;
         public frmExecutaScript()
         {
             InitializeComponent();
         }
-
+        
         private void frmExecutaScript_Load(object sender, EventArgs e)
         {
-            AjustaTitulo();
-
+            this.Text = String.Format("ExecutaScript versão {0}", Geral.getAssemblyVersion());
             btnExecutar.Tag = 0;
             AjustarTela();
             dar = new DelegateAdicionaResultado(AdicionaResultado);
-            lblVersao.Text = "Versão " + Geral.getAssemblyVersion();
-        }
-
-        private void AjustaTitulo()
-        {
-            this.Text = String.Format("ExecutaScript - {0}", NomeArquivo);
         }
 
         private void btnExecutar_Click(object sender, EventArgs e)
@@ -62,13 +53,13 @@ namespace ExecutaScript
                 pb.Visible = true;
 
                 bw.RunWorkerAsync();
-
+                
             }
             else
             {
                 if (bw.IsBusy)
                 {
-                    if (Msg.Confirmacao("Execução script", "Deseja realmente cancelar execução ???"))
+                    if (Msg.Confirmacao("Execução script","Deseja realmente cancelar execução ???"))
                     {
                         bw.CancelAsync();
                         btnExecutar.Tag = 0;
@@ -84,8 +75,6 @@ namespace ExecutaScript
 
             txtScript.Enabled = !executando;
             btnCarregar.Enabled = !executando;
-            btnSalvarComo.Enabled = !executando;
-            btnGravar.Enabled = !executando;
             btnExecutar.Text = (executando ? "Parar" : "Executar");
             pb.Visible = executando;
 
@@ -103,20 +92,13 @@ namespace ExecutaScript
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             int qtde = txtScript.Lines.Count();
-            for (int pos = 0; pos <= qtde - 1; pos++)
+            for (int pos = 0; pos <= qtde - 1;pos++)
             {
-                if (bw.CancellationPending)
-                {
-                    e.Cancel = true;
-                    break;
-                }
-                else
-                {
-                    int progress = (int)((pos + 1.00) / qtde * 100.0);
-                    RetornoComando result = ExecutarComando.ParseComando(txtScript.Lines[pos]);
-                    this.Invoke(dar, new object[] { result.ToString() });
-                    bw.ReportProgress(progress);
-                }
+                int progress = (int)((pos+1.00) / qtde * 100.0);
+                RetornoComando result = ExecutarComando.ParseComando(txtScript.Lines[pos]);
+                this.Invoke(dar, new object[] { result.ToString() });
+                bw.ReportProgress(progress);
+                Thread.Sleep(1000);                
             }
         }
 
@@ -127,16 +109,8 @@ namespace ExecutaScript
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            btnExecutar.Tag = 0;
-            if (!e.Cancelled)
-            {
-                Msg.Informacao("Execução script", "Execução de script concluída");
-            }
-            else
-            {
-                Msg.Informacao("Execução script", "Execução de script foi CANCELADA pelo usuário");
-            }
-         
+            btnExecutar.Tag = 0;            
+            Msg.Informacao("Execução script", "Execução de script concluída");
             AjustarTela();
         }
 
@@ -145,62 +119,6 @@ namespace ExecutaScript
             txtResultados.Text += String.Format("{0}{1}", resultado, Environment.NewLine);
         }
 
-        private void btnCarregar_Click(object sender, EventArgs e)
-        {
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                txtScript.Text = File.ReadAllText(ofd.FileName);
-                NomeArquivo = ofd.FileName;
-                AjustaTitulo();
-            }
-        }
-
-        private void btnGravar_Click(object sender, EventArgs e)
-        {
-            if(String.IsNullOrWhiteSpace(NomeArquivo))
-            {
-                SalvarComo();
-            }
-            else
-            {
-                SalvarScript(NomeArquivo);
-            }
-        }
-
-        
-
-        public bool SalvarComo()
-        {
-            bool ret = false;
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                ret = SalvarScript(sfd.FileName);
-                NomeArquivo = sfd.FileName;
-                AjustaTitulo();
-            }
-            return ret;
-        }
-
-        public bool SalvarScript(String arquivo)
-        {
-            bool ret = false;
-            try {
-                File.WriteAllText(arquivo, txtScript.Text);
-                ret = true;
-            } catch (Exception e)
-            {
-                Msg.Erro("Salvar script", "Erro gravando script!!!\n" + e.Message);
-                ret = false;
-            }
-            
-
-            return ret;
-        }
-
-        private void btnSalvarComo_Click(object sender, EventArgs e)
-        {
-            SalvarComo();
-        }
     }
 
     
